@@ -1,3 +1,4 @@
+import React from 'react';
 import { type AgentState, BarVisualizer, type TrackReference } from '@livekit/components-react';
 import { cn } from '@/lib/utils';
 
@@ -7,12 +8,10 @@ interface AgentAudioTileProps {
   className?: string;
 }
 
-export const AgentTile = ({
-  state,
-  audioTrack,
-  className,
-  ref,
-}: React.ComponentProps<'div'> & AgentAudioTileProps) => {
+export const AgentTile = React.forwardRef<
+  HTMLDivElement,
+  AgentAudioTileProps
+>(({ state, audioTrack, className }, ref) => {
   return (
     <div ref={ref} className={cn(className)}>
       <BarVisualizer
@@ -32,4 +31,6 @@ export const AgentTile = ({
       </BarVisualizer>
     </div>
   );
-};
+});
+
+AgentTile.displayName = 'AgentTile';

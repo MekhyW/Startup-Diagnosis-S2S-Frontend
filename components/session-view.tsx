@@ -28,12 +28,10 @@ interface SessionViewProps {
   sessionStarted: boolean;
 }
 
-export const SessionView = ({
-  appConfig,
-  disabled,
-  sessionStarted,
-  ref,
-}: React.ComponentProps<'div'> & SessionViewProps) => {
+export const SessionView = React.forwardRef<
+  HTMLDivElement,
+  SessionViewProps
+>(({ appConfig, disabled, sessionStarted }, ref) => {
   const { state: agentState } = useVoiceAssistant();
   const [chatOpen, setChatOpen] = useState(false);
   const { messages, send } = useChatAndTranscription();
@@ -89,7 +87,7 @@ export const SessionView = ({
   return (
     <main
       ref={ref}
-      inert={disabled}
+      inert={disabled ? true : undefined}
       className={
         // prevent page scrollbar
         // when !chatOpen due to 'translate-y-20'
@@ -172,4 +170,6 @@ export const SessionView = ({
       </div>
     </main>
   );
-};
+});
+
+SessionView.displayName = 'SessionView';
