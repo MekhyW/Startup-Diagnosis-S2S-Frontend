@@ -87,7 +87,7 @@ export const SessionView = React.forwardRef<
   return (
     <main
       ref={ref}
-      inert={disabled ? true : undefined}
+      {...(disabled && { inert: "" as any })}
       className={
         // prevent page scrollbar
         // when !chatOpen due to 'translate-y-20'

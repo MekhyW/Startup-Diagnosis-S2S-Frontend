@@ -14,7 +14,7 @@ export const Welcome = React.forwardRef<
   return (
     <div
       ref={ref}
-      inert={disabled ? "" : undefined}
+      {...(disabled && { inert: "" as any })}
       className="fixed inset-0 z-10 mx-auto flex h-svh flex-col items-center justify-center text-center"
     >
       <svg

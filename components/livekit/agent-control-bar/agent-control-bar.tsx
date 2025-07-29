@@ -105,7 +105,7 @@ export function AgentControlBar({
     >
       {capabilities.supportsChatInput && (
         <div
-          inert={!chatOpen}
+          {...(!chatOpen && { inert: "" as any })}
           className={cn(
             'overflow-hidden transition-[height] duration-300 ease-out',
             chatOpen ? 'h-[57px]' : 'h-0'
