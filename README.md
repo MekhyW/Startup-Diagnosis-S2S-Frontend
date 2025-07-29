@@ -1,9 +1,8 @@
-# Agent Starter for React
+# Startup Diagnosis S2S Frontend
 
-This is a starter template for [LiveKit Agents](https://docs.livekit.io/agents) that provides a simple voice interface using the [LiveKit JavaScript SDK](https://github.com/livekit/client-sdk-js). It supports [voice](https://docs.livekit.io/agents/start/voice-ai), [transcriptions](https://docs.livekit.io/agents/build/text/), and [virtual avatars](https://docs.livekit.io/agents/integrations/avatar).
+This is an AI-powered voice agent frontend designed specifically for conducting automated interviews with startup owners who are students at Link School of Business. The application provides an intelligent conversational interface that gathers insights about startup ventures, challenges, and opportunities through natural voice interactions.
 
-Also available for:
-[Android](https://github.com/livekit-examples/agent-starter-android) • [Flutter](https://github.com/livekit-examples/agent-starter-flutter) • [Swift](https://github.com/livekit-examples/agent-starter-swift) • [React Native](https://github.com/livekit-examples/agent-starter-react-native)
+Built with [LiveKit Agents](https://docs.livekit.io/agents) and the [LiveKit JavaScript SDK](https://github.com/livekit/client-sdk-js), it supports advanced [voice AI](https://docs.livekit.io/agents/start/voice-ai), real-time [transcriptions](https://docs.livekit.io/agents/build/text/), and [virtual avatars](https://docs.livekit.io/agents/integrations/avatar) for an engaging interview experience.
 
 <picture>
   <source srcset="./.github/assets/readme-hero-dark.webp" media="(prefers-color-scheme: dark)">
@@ -13,15 +12,18 @@ Also available for:
 
 ### Features:
 
-- Real-time voice interaction with LiveKit Agents
-- Camera video streaming support
-- Screen sharing capabilities
-- Audio visualization and level monitoring
-- Virtual avatar integration
-- Light/dark theme switching with system preference detection
-- Customizable branding, colors, and UI text via configuration
+- **AI-Powered Startup Interviews**: Intelligent voice agent specifically trained to conduct structured interviews with startup founders
+- **Real-time Voice Interaction**: Natural conversation flow with LiveKit Agents for seamless communication
+- **Automated Insight Extraction**: Captures and analyzes key startup metrics, challenges, and opportunities
+- **Student-Focused Design**: Tailored interface for Link School of Business students and their startup ventures
+- **Camera Video Streaming**: Visual connection during interviews for better engagement
+- **Live Transcription**: Real-time speech-to-text for accurate record keeping
+- **Virtual Avatar Integration**: Professional AI interviewer avatar for consistent experience
+- **Audio Visualization**: Real-time audio level monitoring and feedback
+- **Responsive Design**: Light/dark theme switching with modern, accessible UI
+- **Customizable Branding**: Configurable colors, logos, and UI text for institutional branding
 
-This template is built with Next.js and is free for you to use or modify as you see fit.
+This application is built with Next.js and designed specifically for educational institutions conducting startup research and mentorship programs.
 
 ### Project structure
 
@@ -48,15 +50,20 @@ agent-starter-react/
 
 ## Getting started
 
-> [!TIP]
-> If you'd like to try this application without modification, you can deploy an instance in just a few clicks with [LiveKit Cloud Sandbox](https://cloud.livekit.io/projects/p_/sandbox/templates/agent-starter-react).
+### Prerequisites
 
-[![Open on LiveKit](https://img.shields.io/badge/Open%20on%20LiveKit%20Cloud-002CF2?style=for-the-badge&logo=external-link)](https://cloud.livekit.io/projects/p_/sandbox/templates/voice-assistant-frontend)
+- Node.js 18+ and pnpm
+- LiveKit Cloud account or self-hosted LiveKit server
+- AI agent backend configured for startup interview scenarios
 
-Run the following command to automatically clone this template.
+### Installation
+
+Clone the repository and install dependencies:
 
 ```bash
-lk app create --template agent-starter-react
+git clone https://github.com/your-org/startup-diagnosis-s2s-frontend.git
+cd startup-diagnosis-s2s-frontend
+pnpm install
 ```
 
 Then run the app with:
@@ -68,31 +75,7 @@ pnpm dev
 
 And open http://localhost:3000 in your browser.
 
-You'll also need an agent to speak with. Try our [Voice AI Quickstart](https://docs.livekit.io/start/voice-ai) for the easiest way to get started.
-
-## Configuration
-
-This starter is designed to be flexible so you can adapt it to your specific agent use case. You can easily configure it to work with different types of inputs and outputs:
-
-#### Example: App configuration (`app-config.ts`)
-
-```ts
-export const APP_CONFIG_DEFAULTS = {
-  companyName: 'LiveKit',
-  pageTitle: 'LiveKit Voice Agent',
-  pageDescription: 'A voice agent built with LiveKit',
-  supportsChatInput: true,
-  supportsVideoInput: true,
-  supportsScreenShare: true,
-  logo: '/lk-logo.svg',
-  accent: '#002cf2',
-  logoDark: '/lk-logo-dark.svg',
-  accentDark: '#1fd5f9',
-  startButtonText: 'Start call',
-};
-```
-
-You can update these values in [`app-config.ts`](./app-config.ts) to customize branding, features, and UI text for your deployment.
+You'll also need a backend AI agent configured for startup interviews. The agent should be trained to ask relevant questions about business models, market validation, funding needs, and growth challenges specific to student entrepreneurs: Check out the [Agent Repository](https://github.com/MekhyW/Startup-Diagnosis-S2S-Agent)
 
 #### Environment Variables
 
@@ -104,8 +87,10 @@ LIVEKIT_API_SECRET=your_livekit_api_secret
 LIVEKIT_URL=https://your-livekit-server-url
 ```
 
-These are required for the voice agent functionality to work with your LiveKit project.
+These are required for the voice agent functionality to work with your LiveKit project and startup interview backend.
 
 ## Contributing
 
-This template is open source and we welcome contributions! Please open a PR or issue through GitHub, and don't forget to join us in the [LiveKit Community Slack](https://livekit.io/join-slack)!
+This project is specifically designed for Link School of Business and startup education programs. We welcome contributions that enhance the interview experience and diagnostic capabilities. Please open a PR or issue through GitHub.
+
+For technical support with LiveKit integration, join the [LiveKit Community Slack](https://livekit.io/join-slack).
