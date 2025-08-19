@@ -15,7 +15,7 @@ export default async function AppLayout({ children }: AppLayoutProps) {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://livekit.io"
+          href="https://lsb.edu.br/"
           className="scale-100 transition-transform duration-300 hover:scale-110"
         >
           <img src={logo} alt={`${companyName} Logo`} className="block size-6 dark:hidden" />
