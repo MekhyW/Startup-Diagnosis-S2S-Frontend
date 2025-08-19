@@ -49,11 +49,11 @@ export const SessionView = React.forwardRef<
         if (!isAgentAvailable(agentState)) {
           const reason =
             agentState === 'connecting'
-              ? 'Agent did not join the room. '
-              : 'Agent connected but did not complete initializing. ';
+              ? 'O agente não entrou na sala. '
+              : 'O agente conectou, mas não completou a inicialização. ';
 
           toastAlert({
-            title: 'Session ended',
+            title: 'Sessão encerrada',
             description: (
               <p className="w-full">
                 {reason}
@@ -63,7 +63,7 @@ export const SessionView = React.forwardRef<
                   href="https://docs.livekit.io/agents/start/voice-ai/"
                   className="whitespace-nowrap underline"
                 >
-                  See quickstart guide
+                  Ver guia de início rápido
                 </a>
                 .
               </p>
@@ -153,7 +153,7 @@ export const SessionView = React.forwardRef<
                 )}
               >
                 <p className="animate-text-shimmer inline-block !bg-clip-text text-sm font-semibold text-transparent">
-                  Agent is listening, ask it a question
+                  O agente está ouvindo, faça uma pergunta
                 </p>
               </motion.div>
             )}

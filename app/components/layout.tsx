@@ -24,7 +24,7 @@ export default function ComponentsLayout({ children }: { children: React.ReactNo
         room.connect(connectionDetails.serverUrl, connectionDetails.participantToken),
       ]).catch((error) => {
         toastAlert({
-          title: 'There was an error connecting to the agent',
+          title: 'Ocorreu um erro ao conectar ao agente',
           description: `${error.name}: ${error.message}`,
         });
       });

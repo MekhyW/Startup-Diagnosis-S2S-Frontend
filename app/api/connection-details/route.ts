@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
 import { AccessToken, type AccessTokenOptions, type VideoGrant } from 'livekit-server-sdk';
+import { authOptions } from '@/lib/auth';
 
-// NOTE: you are expected to define the following environment variables in `.env.local`:
 const API_KEY = process.env.LIVEKIT_API_KEY;
 const API_SECRET = process.env.LIVEKIT_API_SECRET;
 const LIVEKIT_URL = process.env.LIVEKIT_URL;
 
-// don't cache the results
-export const revalidate = 0;
+export const revalidate = 0; // don't cache the results
 
 export type ConnectionDetails = {
   serverUrl: string;
@@ -18,6 +18,10 @@ export type ConnectionDetails = {
 
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
     if (LIVEKIT_URL === undefined) {
       throw new Error('LIVEKIT_URL is not defined');
     }
@@ -27,26 +31,12 @@ export async function GET() {
     if (API_SECRET === undefined) {
       throw new Error('LIVEKIT_API_SECRET is not defined');
     }
-
-    // Generate participant token
-    const participantName = 'user';
-    const participantIdentity = `voice_assistant_user_${Math.floor(Math.random() * 10_000)}`;
+    const participantName = session.user.name || session.user.email || 'user';
+    const participantIdentity = session.user.email || `user_${session.user.id}`;
     const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
-    const participantToken = await createParticipantToken(
-      { identity: participantIdentity, name: participantName },
-      roomName
-    );
-
-    // Return connection details
-    const data: ConnectionDetails = {
-      serverUrl: LIVEKIT_URL,
-      roomName,
-      participantToken: participantToken,
-      participantName,
-    };
-    const headers = new Headers({
-      'Cache-Control': 'no-store',
-    });
+    const participantToken = await createParticipantToken({ identity: participantIdentity, name: participantName }, roomName);
+    const data: ConnectionDetails = {serverUrl: LIVEKIT_URL, roomName, participantToken: participantToken, participantName,};
+    const headers = new Headers({ 'Cache-Control': 'no-store', });
     return NextResponse.json(data, { headers });
   } catch (error) {
     if (error instanceof Error) {

@@ -79,7 +79,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         onClick={() => handleThemeChange('light')}
         className="cursor-pointer px-1.5 py-1"
       >
-        <span className="sr-only">Enable light color scheme</span>
+        <span className="sr-only">Habilitar esquema de cores claro</span>
         <SunIcon size={16} weight="bold" className={cn(theme !== 'light' && 'opacity-25')} />
       </button>
       <button
@@ -87,7 +87,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         onClick={() => handleThemeChange('system')}
         className="cursor-pointer p-1 pr-1.5"
       >
-        <span className="sr-only">Enable system color scheme</span>
+        <span className="sr-only">Habilitar esquema de cores do sistema</span>
         <MonitorIcon size={16} weight="bold" className={cn(theme !== 'system' && 'opacity-25')} />
       </button>
     </div>

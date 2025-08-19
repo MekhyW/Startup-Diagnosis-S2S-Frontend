@@ -1,5 +1,9 @@
+'use client';
+
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
+import { AuthButton } from '@/components/auth/auth-button';
 
 interface WelcomeProps {
   disabled: boolean;
@@ -11,12 +15,18 @@ export const Welcome = React.forwardRef<
   HTMLDivElement,
   WelcomeProps
 >(({ disabled, startButtonText, onStartCall }, ref) => {
+  const { data: session, status } = useSession();
+  
   return (
     <div
       ref={ref}
       {...(disabled && { inert: "" as any })}
       className="fixed inset-0 z-10 mx-auto flex h-svh flex-col items-center justify-center text-center"
     >
+      {/* Authentication section */}
+      <div className="absolute top-6 right-6">
+        <AuthButton />
+      </div>
       <svg
         width="64"
         height="64"
@@ -31,24 +41,34 @@ export const Welcome = React.forwardRef<
         />
       </svg>
 
-      <p className="text-fg1 max-w-prose pt-1 leading-6 font-medium">
-        Chat live with your voice AI agent
-      </p>
-      <Button variant="primary" size="lg" onClick={onStartCall} className="mt-6 w-64 font-mono">
-        {startButtonText}
-      </Button>
-      <p className="text-fg1 m fixed bottom-5 left-1/2 w-full max-w-prose -translate-x-1/2 pt-1 text-xs leading-5 font-normal text-pretty md:text-sm">
-        Need help getting set up? Check out the{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://docs.livekit.io/agents/start/voice-ai/"
-          className="underline"
+      <div className="space-y-4">
+        <p className="text-fg1 max-w-prose pt-1 leading-6 font-medium">
+          Chat com o agente entrevistador
+        </p>
+        
+        {session && (
+          <p className="text-fg2 text-sm">
+            Olá, {session.user?.name || session.user?.email}!
+          </p>
+        )}
+        
+        <Button 
+          variant="primary" 
+          size="lg" 
+          onClick={onStartCall} 
+          className="mt-6 w-64 font-mono"
+          disabled={!session || status !== 'authenticated'}
         >
-          Voice AI quickstart
-        </a>
-        .
-      </p>
+          {status === 'loading' ? 'Loading...' : 
+           !session ? 'Sign in to start' : startButtonText}
+        </Button>
+        
+        {!session && (
+          <p className="text-fg2 text-sm max-w-md">
+            Faça login com sua conta do Gmail para acessar a plataforma de entrevista com IA.
+          </p>
+        )}
+      </div>
     </div>
   );
 });

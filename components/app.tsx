@@ -61,7 +61,7 @@ export function App({ appConfig }: AppProps) {
         }
 
         toastAlert({
-          title: 'There was an error connecting to the agent',
+          title: 'Ocorreu um erro ao conectar ao agente',
           description: `${error.name}: ${error.message}`,
         });
       });
