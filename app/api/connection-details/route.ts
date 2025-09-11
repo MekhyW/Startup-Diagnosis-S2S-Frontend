@@ -34,7 +34,11 @@ export async function GET() {
     const participantName = session.user.name || session.user.email || 'user';
     const participantIdentity = session.user.email || `user_${session.user.id}`;
     const roomName = `voice_assistant_room_${Math.floor(Math.random() * 10_000)}`;
-    const participantToken = await createParticipantToken({ identity: participantIdentity, name: participantName }, roomName);
+    const participantToken = await createParticipantToken(
+      { identity: participantIdentity, name: participantName }, 
+      roomName, 
+      session.user.email || undefined
+    );
     const data: ConnectionDetails = {serverUrl: LIVEKIT_URL, roomName, participantToken: participantToken, participantName,};
     const headers = new Headers({ 'Cache-Control': 'no-store', });
     return NextResponse.json(data, { headers });
@@ -46,11 +50,18 @@ export async function GET() {
   }
 }
 
-function createParticipantToken(userInfo: AccessTokenOptions, roomName: string) {
-  const at = new AccessToken(API_KEY, API_SECRET, {
+function createParticipantToken(userInfo: AccessTokenOptions, roomName: string, userEmail?: string) {
+  const tokenOptions: AccessTokenOptions = {
     ...userInfo,
     ttl: '15m',
-  });
+  };
+  if (userEmail) {
+    tokenOptions.metadata = JSON.stringify({
+      email: userEmail,
+      timestamp: new Date().toISOString()
+    });
+  }
+  const at = new AccessToken(API_KEY, API_SECRET, tokenOptions);
   const grant: VideoGrant = {
     room: roomName,
     roomJoin: true,
